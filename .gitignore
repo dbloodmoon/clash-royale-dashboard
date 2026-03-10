@@ -1,0 +1,14 @@
+# Entorno Virtual
+Scripts/
+Lib/
+Include/
+__pycache__/
+share/
+etc/
+pyvenv.cfg
+
+# Archivos de Entorno
+.env
+
+# Otros
+task.md
