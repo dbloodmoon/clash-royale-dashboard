@@ -10,10 +10,19 @@ class ClashRoyaleClient:
         nuestro cliente funcione apenas se cree.
         """
         load_dotenv()
+        
+        # Intenta leer de .env (local) o de st.secrets (Streamlit Cloud)
         self.token = os.getenv("CLASH_TOKEN")
-
+        
         if not self.token:
-            raise ValueError("No se encontró el token en el archivo .env")
+            try:
+                import streamlit as st
+                self.token = st.secrets["CLASH_TOKEN"]
+            except Exception:
+                pass
+        
+        if not self.token:
+            raise ValueError("No se encontró el CLASH_TOKEN. Revisa tu .env o los Secrets de Streamlit Cloud.")
         
         self.base_url = "https://api.clashroyale.com/v1/"
         self.headers = {

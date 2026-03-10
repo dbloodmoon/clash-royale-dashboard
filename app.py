@@ -28,7 +28,7 @@ if clan_buscado:
         with col1:
             st.metric(t["total_members"], f"{total_miembros} / 50")
         with col2:
-            st.metric(t["avg_trophies"], f"🏆 {int(suma_copas / total_miembros)}")
+            st.metric(t["avg_trophies"], f"🏆 {int(suma_copas / total_miembros) if total_miembros > 0 else 0}")
         with col3:
             st.metric(t["total_trophies"], f"🏆 {suma_copas:,}")
             
