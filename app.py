@@ -4,6 +4,8 @@ from translations import TEXTS
 
 idioma = st.sidebar.radio("🌐 Idioma / Language", ["es", "en"])
 t = TEXTS[idioma]
+st.sidebar.markdown("---")
+st.sidebar.markdown("💜 [" + t["donate"] + "](https://paypal.me/DMolinaInojosa)")
 cliente = ClashRoyaleClient()
 
 st.set_page_config(page_title=t["title"], page_icon="👑", layout="wide")
