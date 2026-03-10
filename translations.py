@@ -2,7 +2,7 @@
 
 TEXTS = {
     "es": {
-        "title": "Clash Royale - Clan Stats Dashboard ⚔️",
+        "title": "Clash Royale - Estadísticas de Clan ⚔️",
         "search_label": "Ingresa el Tag del Clan:",
         "total_members": "Total de Miembros",
         "avg_trophies": "Promedio de Copas",
