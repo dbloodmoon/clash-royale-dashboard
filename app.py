@@ -5,12 +5,20 @@ st.set_page_config(page_title="Clash Royale - Stats Tracker ⚔️", page_icon="
 from clash_client import ClashRoyaleClient
 from translations import TEXTS
 
-idioma = st.radio("🌐 Idioma / Language", ["es", "en"], horizontal=True)
+# Initialize defaults so we can translate the title FIRST
+idioma = st.session_state.get('lang', 'es')
 t = TEXTS[idioma]
 cliente = ClashRoyaleClient()
 
 st.title(t["title"])
 st.markdown("---")
+
+# The radio button actually goes here
+nuevo_idioma = st.radio("🌐 Idioma / Language", ["es", "en"], index=0 if idioma == 'es' else 1, horizontal=True)
+
+if nuevo_idioma != idioma:
+    st.session_state['lang'] = nuevo_idioma
+    st.rerun()
 
 tag_buscado = st.text_input(t["search_label"], value="#VY9P8JLLR")
 st.write("")
