@@ -40,10 +40,7 @@ if clan_buscado:
                 clan_type = t.get("type_" + clan_info["type"], clan_info["type"])
                 st.metric(t["clan_type"], f"📋 {clan_type}")
 
-            st.markdown("---")
-            st.subheader(t["clan_info"])
-            st.markdown(f"**{t['clan_description']}:** {clan_info['description']}")
-            st.markdown(f"**{t['clan_location']}:** {clan_info['location']}")
+
 
         except Exception as e:
             st.error(f"{t['search_error']}: {str(e)}")
@@ -70,6 +67,36 @@ if clan_buscado:
             st.markdown("---")
             st.subheader(t["player_list"])
             st.dataframe(miembros_limpios, width='stretch', height=400, hide_index=True)
+
+            st.markdown("---")
+
+            # Selector de jugador para ver stats individuales
+            nombres = [m[t["col_name"]] for m in miembros_limpios]
+            tags_raw = [m["tag"] for m in miembros.get("items", [])]
+            nombre_tag = dict(zip(nombres, tags_raw))
+
+            jugador_elegido = st.selectbox(t["select_player"], nombres)
+
+            if jugador_elegido:
+                with st.spinner("⏳"):
+                    stats = cliente.get_player_stats(nombre_tag[jugador_elegido], t)
+
+                st.subheader(f"{t['player_stats']}: {jugador_elegido}")
+                c1, c2, c3, c4 = st.columns(4)
+                keys = list(stats.keys())
+                vals = list(stats.values())
+                with c1:
+                    st.metric(keys[0], vals[0])
+                    st.metric(keys[4], vals[4])
+                with c2:
+                    st.metric(keys[1], vals[1])
+                    st.metric(keys[5], vals[5])
+                with c3:
+                    st.metric(keys[2], vals[2])
+                    st.metric(keys[6], vals[6])
+                with c4:
+                    st.metric(keys[3], vals[3])
+                    st.metric(keys[7], vals[7])
         except Exception as e:
             st.error(f"{t['search_error']}: {str(e)}")
 

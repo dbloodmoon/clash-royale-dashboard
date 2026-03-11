@@ -85,6 +85,34 @@ class ClashRoyaleClient:
         }
         return limpio
 
+    def get_player_stats(self, player_tag: str, t: dict) -> dict:
+        """
+        Obtiene las estadísticas de combate de un jugador.
+        Calcula el win rate a partir de victorias y batallas totales.
+        """
+        data = self.get_player_data(player_tag)
+        
+        wins = data.get("wins", 0)
+        losses = data.get("losses", 0)
+        battle_count = data.get("battleCount", 0)
+        three_crown_wins = data.get("threeCrownWins", 0)
+        best_trophies = data.get("bestTrophies", 0)
+        challenge_max_wins = data.get("challengeMaxWins", 0)
+        war_day_wins = data.get("warDayWins", 0)
+        
+        win_rate = round((wins / battle_count) * 100, 1) if battle_count > 0 else 0
+        
+        return {
+            t["stat_wins"]: wins,
+            t["stat_losses"]: losses,
+            t["stat_battles"]: battle_count,
+            t["stat_win_rate"]: f"{win_rate}%",
+            t["stat_three_crowns"]: three_crown_wins,
+            t["stat_best_trophies"]: best_trophies,
+            t["stat_challenge_max"]: challenge_max_wins,
+            t["stat_war_wins"]: war_day_wins,
+        }
+
     def get_clan_info(self, clan_tag: str) -> dict:
         """
         Obtiene la información general del clan desde la API.
