@@ -4,8 +4,6 @@ st.set_page_config(page_title="Clash Royale - Stats Tracker ⚔️", page_icon="
 
 from clash_client import ClashRoyaleClient
 from translations import TEXTS
-import urllib.request
-st.write("🔍 Server IP:", urllib.request.urlopen("https://api.ipify.org").read().decode())
 
 idioma = st.radio("🌐 Idioma / Language", ["es", "en"], horizontal=True)
 t = TEXTS[idioma]
