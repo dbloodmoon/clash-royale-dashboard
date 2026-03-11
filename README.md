@@ -41,7 +41,6 @@ An interactive web dashboard built with **Python** and **Streamlit** to visualiz
 ├── app.py              # Web interface (Streamlit)
 ├── clash_client.py     # Clash Royale API client (OOP)
 ├── translations.py     # Internationalization system (i18n)
-├── main.py             # Console testing script
 ├── requirements.txt    # Project dependencies
 ├── .env                # Environment variables (NOT in repo)
 └── .gitignore          # Git excluded files

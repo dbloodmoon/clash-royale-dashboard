@@ -1,12 +1,13 @@
 import streamlit as st
+
+st.set_page_config(page_title="Clash Royale - Clan Stats Dashboard ⚔️", page_icon="👑", layout="wide")
+
 from clash_client import ClashRoyaleClient
 from translations import TEXTS
 
 idioma = st.radio("🌐 Idioma / Language", ["es", "en"], horizontal=True)
 t = TEXTS[idioma]
 cliente = ClashRoyaleClient()
-
-st.set_page_config(page_title=t["title"], page_icon="👑", layout="wide")
 
 st.title(t["title"])
 st.markdown("---")
@@ -40,7 +41,7 @@ if clan_buscado:
         st.error(f"Error al buscar el clan: {str(e)}")
 
     try:
-        participantes = cliente.get_clan_war_participantion(clan_buscado)
+        participantes = cliente.get_clan_war_participation(clan_buscado)
         participantes_limpios = cliente.extract_war_participants(participantes, t)
         st.subheader(t["war_list"])
         st.dataframe(participantes_limpios, use_container_width=True, height=400, width=300, hide_index=True)

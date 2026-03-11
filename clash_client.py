@@ -113,10 +113,10 @@ class ClashRoyaleClient:
         
         return miembros_limpios
 
-    def get_clan_war_participantion(self, clan_tag: str) -> list:
+    def get_clan_war_participation(self, clan_tag: str) -> list:
         """
         Obtiene la lista cruda de participantes de una guerra de clan desde la API.
-        Endpoint: /clans/{clanTag}/currentwar
+        Endpoint: /clans/{clanTag}/currentriverrace
         """
         formatted_tag = self._format_tag(clan_tag)
         url = self.base_url + "clans/" + formatted_tag + "/currentriverrace"
