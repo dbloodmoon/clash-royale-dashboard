@@ -39,7 +39,36 @@ if clan_buscado:
             with col6:
                 clan_type = t.get("type_" + clan_info["type"], clan_info["type"])
                 st.metric(t["clan_type"], f"📋 {clan_type}")
+            st.markdown("---")
 
+            # Selector de jugador para ver stats individuales
+            miembros_overview = cliente.get_clan_members(clan_buscado)
+            nombres = [m["name"] for m in miembros_overview.get("items", [])]
+            tags_raw = [m["tag"] for m in miembros_overview.get("items", [])]
+            nombre_tag = dict(zip(nombres, tags_raw))
+
+            jugador_elegido = st.selectbox(t["select_player"], nombres, key="overview_select")
+
+            if jugador_elegido:
+                with st.spinner("⏳"):
+                    stats = cliente.get_player_stats(nombre_tag[jugador_elegido], t)
+
+                st.subheader(f"{t['player_stats']}: {jugador_elegido}")
+                c1, c2, c3, c4 = st.columns(4)
+                keys = list(stats.keys())
+                vals = list(stats.values())
+                with c1:
+                    st.metric(keys[0], vals[0])
+                    st.metric(keys[4], vals[4])
+                with c2:
+                    st.metric(keys[1], vals[1])
+                    st.metric(keys[5], vals[5])
+                with c3:
+                    st.metric(keys[2], vals[2])
+                    st.metric(keys[6], vals[6])
+                with c4:
+                    st.metric(keys[3], vals[3])
+                    st.metric(keys[7], vals[7])
 
 
         except Exception as e:
