@@ -41,34 +41,26 @@ if clan_buscado:
                 st.metric(t["clan_type"], f"📋 {clan_type}")
             st.markdown("---")
 
-            # Selector de jugador para ver stats individuales
-            miembros_overview = cliente.get_clan_members(clan_buscado)
-            nombres = [m["name"] for m in miembros_overview.get("items", [])]
-            tags_raw = [m["tag"] for m in miembros_overview.get("items", [])]
-            nombre_tag = dict(zip(nombres, tags_raw))
+            # Estadísticas de Guerra del Clan
+            war_log = cliente.get_clan_war_log(clan_buscado)
+            
+            if war_log:
+                total_wars = len(war_log)
+                first_places = sum(1 for w in war_log if w["rank"] == 1)
+                avg_fame = int(sum(w["fame"] for w in war_log) / total_wars)
+                total_trophy_change = sum(w["trophy_change"] for w in war_log)
+                win_rate = round((first_places / total_wars) * 100, 1)
 
-            jugador_elegido = st.selectbox(t["select_player"], nombres, key="overview_select")
-
-            if jugador_elegido:
-                with st.spinner("⏳"):
-                    stats = cliente.get_player_stats(nombre_tag[jugador_elegido], t)
-
-                st.subheader(f"{t['player_stats']}: {jugador_elegido}")
-                c1, c2, c3, c4 = st.columns(4)
-                keys = list(stats.keys())
-                vals = list(stats.values())
-                with c1:
-                    st.metric(keys[0], vals[0])
-                    st.metric(keys[4], vals[4])
-                with c2:
-                    st.metric(keys[1], vals[1])
-                    st.metric(keys[5], vals[5])
-                with c3:
-                    st.metric(keys[2], vals[2])
-                    st.metric(keys[6], vals[6])
-                with c4:
-                    st.metric(keys[3], vals[3])
-                    st.metric(keys[7], vals[7])
+                st.subheader(t["clan_war_stats"])
+                cw1, cw2, cw3, cw4 = st.columns(4)
+                with cw1:
+                    st.metric(t["wars_played"], f"⚔️ {total_wars}")
+                with cw2:
+                    st.metric(t["wars_won"], f"🥇 {first_places}")
+                with cw3:
+                    st.metric(t["clan_win_rate"], f"📈 {win_rate}%")
+                with cw4:
+                    st.metric(t["avg_fame"], f"🔥 {avg_fame:,}")
 
 
         except Exception as e:

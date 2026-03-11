@@ -135,6 +135,28 @@ class ClashRoyaleClient:
             "location": data.get("location", {}).get("name", "N/A"),
         }
 
+    def get_clan_war_log(self, clan_tag: str) -> list:
+        """
+        Obtiene el historial de guerras (River Race) del clan.
+        Endpoint: /clans/{clanTag}/riverracelog
+        Devuelve una lista con rank, fame y trophy_change por guerra.
+        """
+        formatted_tag = self._format_tag(clan_tag)
+        url = self.base_url + "clans/" + formatted_tag + "/riverracelog"
+        response = requests.request("GET", url, headers=self.headers)
+        data = response.json()
+        
+        wars = []
+        for war in data.get("items", []):
+            for standing in war.get("standings", []):
+                if standing["clan"]["tag"] == clan_tag.upper():
+                    wars.append({
+                        "rank": standing["rank"],
+                        "fame": standing["clan"].get("fame", 0),
+                        "trophy_change": standing.get("trophyChange", 0),
+                    })
+        return wars
+
     def get_clan_members(self, clan_tag: str) -> dict:
         """
         Obtiene la lista cruda de miembros de un clan desde la API.
