@@ -2,7 +2,7 @@
 
 TEXTS = {
     "es": {
-        "title": "Clash Royale - Estadísticas de Clan ⚔️",
+        "title": "Clash Royale - Stats Tracker ⚔️",
         "search_label": "Ingresa el Tag:",
         "search_mode": "🔎 Buscar por:",
         "mode_player": "👤 Jugador",
@@ -74,7 +74,7 @@ TEXTS = {
         "plural_s": "s",
     },
     "en": {
-        "title": "Clash Royale - Clan Stats Dashboard ⚔️",
+        "title": "Clash Royale - Stats Tracker ⚔️",
         "search_label": "Enter the Tag:",
         "search_mode": "🔎 Search by:",
         "mode_player": "👤 Player",

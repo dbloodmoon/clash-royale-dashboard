@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.set_page_config(page_title="Clash Royale - Clan Stats Dashboard ⚔️", page_icon="👑", layout="wide")
+st.set_page_config(page_title="Clash Royale - Stats Tracker ⚔️", page_icon="👑", layout="wide")
 
 from clash_client import ClashRoyaleClient
 from translations import TEXTS
@@ -12,7 +12,7 @@ cliente = ClashRoyaleClient()
 st.title(t["title"])
 st.markdown("---")
 
-tag_buscado = st.text_input(t["search_label"], value="#V08J9VG88")
+tag_buscado = st.text_input(t["search_label"], value="#VY9P8JLLR")
 st.write("")
 
 if tag_buscado:
