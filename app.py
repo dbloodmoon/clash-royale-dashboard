@@ -4,6 +4,8 @@ st.set_page_config(page_title="Clash Royale - Clan Stats Dashboard ⚔️", page
 
 from clash_client import ClashRoyaleClient
 from translations import TEXTS
+import urllib.request
+st.write("🔍 Server IP:", urllib.request.urlopen("https://api.ipify.org").read().decode())
 
 idioma = st.radio("🌐 Idioma / Language", ["es", "en"], horizontal=True)
 t = TEXTS[idioma]
@@ -69,7 +71,7 @@ if clan_buscado:
 
             st.markdown("---")
             st.subheader(t["player_list"])
-            st.dataframe(miembros_limpios, use_container_width=True, height=400, hide_index=True)
+            st.dataframe(miembros_limpios, width='stretch', height=400, hide_index=True)
         except Exception as e:
             st.error(f"{t['search_error']}: {str(e)}")
 
@@ -79,7 +81,7 @@ if clan_buscado:
             participantes = cliente.get_clan_war_participation(clan_buscado)
             participantes_limpios = cliente.extract_war_participants(participantes, t)
             st.subheader(t["war_list"])
-            st.dataframe(participantes_limpios, use_container_width=True, height=400, hide_index=True)
+            st.dataframe(participantes_limpios, width='stretch', height=400, hide_index=True)
         except Exception as e:
             st.error(f"{t['war_error']}: {str(e)}")
 
