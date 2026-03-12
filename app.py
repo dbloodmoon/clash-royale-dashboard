@@ -30,7 +30,11 @@ if tag_buscado:
         if modo == t["mode_player"]:
             # ===== MODO JUGADOR =====
             player_data = cliente.get_player_data(tag_buscado)
-
+            
+            if "reason" in player_data and player_data["reason"] == "notFound":
+                st.warning(t["not_found_player"])
+                st.stop()
+            
             clan_data = player_data.get("clan", None)
             has_clan = clan_data is not None
             clan_tag = clan_data.get("tag", "") if has_clan else ""
@@ -188,11 +192,15 @@ if tag_buscado:
             # ===== MODO CLAN =====
             clan_tag = tag_buscado
 
+            clan_info = cliente.get_clan_info(clan_tag)
+            
+            if "reason" in clan_info and clan_info["reason"] == "notFound":
+                st.warning(t["not_found_clan"])
+                st.stop()
+
             tab1, tab2, tab3 = st.tabs([t["tab_overview"], t["tab_members"], t["tab_war"]])
 
             with tab1:
-                clan_info = cliente.get_clan_info(clan_tag)
-
                 st.subheader(t["clan_overview"])
                 co1, co2, co3 = st.columns(3)
                 with co1:
