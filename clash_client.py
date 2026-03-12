@@ -181,6 +181,7 @@ class ClashRoyaleClient:
                 t["col_last_seen"]: self._format_date(miembro.get("lastSeen", ""), t)
             })
         
+        miembros_limpios.sort(key=lambda x: x[t["col_donations"]], reverse=True)
         return miembros_limpios
 
     def get_clan_war_participation(self, clan_tag: str) -> list:
@@ -210,4 +211,5 @@ class ClashRoyaleClient:
                 t["col_decks_today"]: p.get("decksUsedToday", 0),
             })
 
+        participantes_limpios.sort(key=lambda x: x[t["col_fame"]], reverse=True)
         return participantes_limpios
