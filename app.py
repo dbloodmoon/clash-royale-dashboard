@@ -161,6 +161,26 @@ if tag_buscado:
                     participantes_limpios = cliente.extract_war_participants(participantes, t)
                     st.subheader(t["war_list"])
                     st.dataframe(participantes_limpios, width='stretch', height=400, hide_index=True)
+
+                    # Stats de guerra del clan
+                    war_log = cliente.get_clan_war_log(clan_tag)
+                    if war_log:
+                        st.markdown("---")
+                        total_wars = len(war_log)
+                        first_places = sum(1 for w in war_log if w["rank"] == 1)
+                        avg_fame = int(sum(w["fame"] for w in war_log) / total_wars)
+                        win_rate = round((first_places / total_wars) * 100, 1)
+
+                        st.subheader(t["clan_war_stats"])
+                        cw1, cw2, cw3, cw4 = st.columns(4)
+                        with cw1:
+                            st.metric(t["wars_played"], f"⚔️ {total_wars}")
+                        with cw2:
+                            st.metric(t["wars_won"], f"🥇 {first_places}")
+                        with cw3:
+                            st.metric(t["clan_win_rate"], f"📈 {win_rate}%")
+                        with cw4:
+                            st.metric(t["avg_fame"], f"🔥 {avg_fame:,}")
                 else:
                     st.info(t["no_clan"])
 
