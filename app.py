@@ -174,6 +174,7 @@ if tag_buscado:
                     st.subheader(t["war_list"])
                     estado_traducido = t.get(f"state_{estado_guerra}", estado_guerra)
                     st.metric(t["war_state"], f"🏁 {estado_traducido}")
+                    st.error(f"DEBUG - API Tira: '{estado_guerra}'")
                     st.dataframe(participantes_limpios, width='stretch', height=400, hide_index=True)
 
                     # Stats de guerra del clan
@@ -311,6 +312,7 @@ if tag_buscado:
                 st.subheader(t["war_list"])
                 estado_traducido = t.get(f"state_{estado_guerra}", estado_guerra)
                 st.metric(t["war_state"], f"🏁 {estado_traducido}")
+                st.error(f"DEBUG - API Tira: '{estado_guerra}'")
                 st.dataframe(participantes_limpios, width='stretch', height=400, hide_index=True)
 
                 # Stats de guerra del clan
