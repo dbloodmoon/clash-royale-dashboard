@@ -1,6 +1,9 @@
 import streamlit as st
+import requests
 
 st.set_page_config(page_title="Clash Royale - Stats Tracker ⚔️", page_icon="👑", layout="wide")
+
+st.info(f"📍 Tu IP actual del servidor es: {requests.get('https://api.ipify.org').text}")
 
 from clash_client import ClashRoyaleClient
 from translations import TEXTS
