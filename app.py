@@ -1,5 +1,5 @@
 import streamlit as st
-
+import requests
 st.set_page_config(page_title="Clash Royale - Stats Tracker ⚔️", page_icon="👑", layout="wide")
 from clash_client import ClashRoyaleClient
 from translations import TEXTS
