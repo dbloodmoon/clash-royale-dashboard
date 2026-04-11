@@ -11,6 +11,7 @@ cliente = ClashRoyaleClient()
 
 st.title(t["title"])
 st.markdown("---")
+st.info(f"📍 Tu IP actual del servidor es: {requests.get('https://api.ipify.org').text}")
 
 # The radio button actually goes here
 nuevo_idioma = st.radio("🌐 Idioma / Language", ["es", "en"], index=0 if idioma == 'es' else 1, horizontal=True)
